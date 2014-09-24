@@ -1,7 +1,7 @@
 package uti.utility;
 
-import java.sql.Date;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MyDate
 {

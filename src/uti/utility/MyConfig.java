@@ -15,48 +15,8 @@ public class MyConfig
 	public static String ListOperator = ",VIETTEL,VMS,GPC,HTC";
 	public static String ListServiceID = ",6083,6183,6283,6383,6483,6583,6683,6783";
 
-	public enum VNPApplication
-	{
-		NoThing(0),
-		CCOS(1),
-		VASPORTAL(2),
-		VASVOUCHER (3),
-		VASDEALER(4),
-		MOBILEADS(5),
-		USSDGW(6),
-		CROSSSALE(7),
-		TEST(8),
-		MOBILE_ADS(9),
-		IOS(10),
-		MONITOR(11),
-		VASBUNDLE(12),
-		UNSUB(13),
-		UNSUBALL(14),
-		;
-
-		private int value;
-
-		private VNPApplication(int value)
-		{
-			this.value = value;
-		}
-
-		public Integer GetValue()
-		{
-			return this.value;
-		}
-
-		public static VNPApplication FromInt(int iValue)
-		{
-			for (VNPApplication type : VNPApplication.values())
-			{
-				if (type.GetValue() == iValue)
-					return type;
-			}
-			return NoThing;
-		}
-	}
 	
+
 	public static enum Telco
 	{
 		NOTHING(0), VIETTEL(1), GPC(2), VMS(3), BEELINE(4), SFONE(6), HTC(7);
@@ -106,8 +66,7 @@ public class MyConfig
 			{
 				return ListKeyInConfig.get(Key);
 			}
-			else
-				return "";
+			else return "";
 
 		}
 		catch (Exception ex)
@@ -127,92 +86,90 @@ public class MyConfig
 	{
 		switch (mTelco)
 		{
-			case BEELINE:
+			case BEELINE :
 				return "GMobile";
-			case VIETTEL:
+			case VIETTEL :
 				return "Viettel";
-			case VMS:
+			case VMS :
 				return "Mobifone";
-			case GPC:
+			case GPC :
 				return "Vinaphone";
-			case SFONE:
+			case SFONE :
 				return "SFone";
-			case HTC:
+			case HTC :
 				return "VietNamMobile";
-			default:
+			default :
 				return "";
 
 		}
 	}
 
 	private static String DateFormat_InsertDB = "yyyy-MM-dd HH:mm:ss.SSS";
-	
+
 	public static synchronized SimpleDateFormat Get_DateFormat_InsertDB() throws Exception
 	{
 		return new SimpleDateFormat(DateFormat_InsertDB);
 	}
-	
+
 	private static SimpleDateFormat DateFormat_LongFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
 
 	public static synchronized SimpleDateFormat Get_DateFormat_LongFormat()
 	{
 		return DateFormat_LongFormat;
 	}
-	
+
 	private static SimpleDateFormat DateFormat_yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
 	public static synchronized SimpleDateFormat Get_DateFormat_yyyyMMdd()
 	{
 		return DateFormat_yyyyMMdd;
-	}	
-	
+	}
+
 	private static SimpleDateFormat DateFormat_VNShort = new SimpleDateFormat("dd-MM-yyyy");
 	public static synchronized SimpleDateFormat Get_DateFormat_VNShort()
 	{
 		return DateFormat_VNShort;
 	}
-	
+
 	private static SimpleDateFormat DateFormat_VNShortSlash = new SimpleDateFormat("dd/MM/yyyy");
 	public static synchronized SimpleDateFormat Get_DateFormat_VNShortSlash()
 	{
 		return DateFormat_VNShortSlash;
 	}
-	
+
 	private static SimpleDateFormat DateFormat_VNLong = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 	public static synchronized SimpleDateFormat Get_DateFormat_VNLong()
 	{
 		return DateFormat_VNLong;
 	}
-	
+
 	private static SimpleDateFormat DateFormat_VNTimeShort = new SimpleDateFormat("HH:mm");
 	public static synchronized SimpleDateFormat Get_DateFormat_VNTimeShort()
 	{
 		return DateFormat_VNTimeShort;
 	}
-	
+
 	private static SimpleDateFormat DateFormat_yyyymmddhhmmss = new SimpleDateFormat("yyyyMMddHHmmss");
 	public static synchronized SimpleDateFormat Get_DateFormat_yyyymmddhhmmss()
 	{
 		return DateFormat_yyyymmddhhmmss;
 	}
-	
+
 	private static SimpleDateFormat DateFormat_yyyymmddhhmmssSSS = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 	public static synchronized SimpleDateFormat Get_DateFormat_yyyymmddhhmmssSSS()
 	{
 		return DateFormat_yyyymmddhhmmssSSS;
 	}
-	
-	
+
 	/**
 	 * Định nghĩa các kênh Đăng ký, Hủy
+	 * 
 	 * @author Administrator
-	 *
+	 * 
 	 */
 	public enum ChannelType
 	{
-		NOTHING(0), 
-		SMS(1), IVR(2), WEB(3), WAP(4), USSD(5), CLIENT(6), API(7), 
-		UNSUB(7),CSKH(8),MAXRETRY(9),SUBNOTEXIST(10),SYSTEM(11) 
-		;
+		NOTHING(0), SMS(1), IVR(2), WEB(3), WAP(4), USSD(5), CLIENT(6), API(7), UNSUB(7), CSKH(8), MAXRETRY(9), SUBNOTEXIST(
+				10), SYSTEM(11);
 
 		private int value;
 

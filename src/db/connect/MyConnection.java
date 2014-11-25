@@ -8,7 +8,6 @@ import org.logicalcobwebs.proxool.configuration.JAXPConfigurator;
 
 import db.define.DBConfig;
 
-
 public class MyConnection
 {
 	public static Boolean IsLoadConfig = false;
@@ -20,38 +19,40 @@ public class MyConnection
 			Connection mConn = null;
 			switch (mDBConfig.GetConfigType())
 			{
-				
-				case ExistPoolName:
+				case ExistPoolName :
 					if (!IsLoadConfig)
 					{
 						IsLoadConfig = true;
-						// String CurrentPath = utility.MyCurrent.GetCurrentPath();
+						// String CurrentPath =
+						// utility.MyCurrent.GetCurrentPath();
 						JAXPConfigurator.configure("ProxoolConfig.xml", false);
 					}
-					mConn = DriverManager.getConnection("proxool." + mDBConfig.PoolName);
-					
-				case Both:
-					
+					mConn = DriverManager.getConnection("proxool." + mDBConfig.GetPoolName());
+
+				case Both :
+
 					if (!IsLoadConfig)
 					{
 						IsLoadConfig = true;
-						// String CurrentPath = utility.MyCurrent.GetCurrentPath();
+						// String CurrentPath =
+						// utility.MyCurrent.GetCurrentPath();
 						JAXPConfigurator.configure(mDBConfig.ConfigPath, false);
 					}
 
-					mConn = DriverManager.getConnection("proxool." + mDBConfig.PoolName);
-					
+					mConn = DriverManager.getConnection("proxool." + mDBConfig.GetPoolName());
+
 					break;
 				default :
-					mDBConfig.PoolName = "Default";
-					
+					mDBConfig.SetPoolName("Default");
+
 					if (!IsLoadConfig)
 					{
 						IsLoadConfig = true;
-						// String CurrentPath = utility.MyCurrent.GetCurrentPath();
+						// String CurrentPath =
+						// utility.MyCurrent.GetCurrentPath();
 						JAXPConfigurator.configure("ProxoolConfig.xml", false);
 					}
-					mConn = DriverManager.getConnection("proxool." + mDBConfig.PoolName);
+					mConn = DriverManager.getConnection("proxool." + mDBConfig.GetPoolName());
 					break;
 			}
 
@@ -67,6 +68,5 @@ public class MyConnection
 			throw ex;
 		}
 	}
-	
 
 }

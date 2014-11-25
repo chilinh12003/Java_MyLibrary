@@ -84,6 +84,35 @@ public class MyExecuteData
 			if (Result > 0) return true;
 			else return false;
 		}
+		catch (SQLException e)
+		{
+			try
+			{
+				if (mDBConfig.AutoSwitchConnection && mDBConfig.OrderConnection <= mDBConfig.MaxConnectionBackup)
+				{
+					if (	e.getSQLState().equalsIgnoreCase(DBConfig.SQLState.SQLState_TimeOut.GetValue()) || 
+							e.getErrorCode() == DBConfig.SQLErrorCode.SQLErrorCode_TimeOut.GetValue())
+					{
+						mDBConfig.SetOrderConnection();
+						return Execute_Query(Query);
+					}
+				}
+				if (UseTransaction) mConnect.rollback();
+				throw e;
+			}
+			catch (Exception ex)
+			{
+				try
+				{
+					if (UseTransaction) mConnect.rollback();
+				}
+				catch (Exception ex_1)
+				{
+					throw ex_1;
+				}
+				throw ex;
+			}			
+		}
 		catch (Exception ex)
 		{
 			try
@@ -185,6 +214,35 @@ public class MyExecuteData
 			if (Result > 0) return true;
 			else return false;
 		}
+		catch (SQLException e)
+		{
+			try
+			{
+				if (mDBConfig.AutoSwitchConnection && mDBConfig.OrderConnection <= mDBConfig.MaxConnectionBackup)
+				{
+					if (	e.getSQLState().equalsIgnoreCase(DBConfig.SQLState.SQLState_TimeOut.GetValue()) || 
+							e.getErrorCode() == DBConfig.SQLErrorCode.SQLErrorCode_TimeOut.GetValue())
+					{
+						mDBConfig.SetOrderConnection();
+						return Execute_Query(QueryFormat,ValueList);
+					}
+				}
+				if (UseTransaction) mConnect.rollback();
+				throw e;
+			}
+			catch (Exception ex)
+			{
+				try
+				{
+					if (UseTransaction) mConnect.rollback();
+				}
+				catch (Exception ex_1)
+				{
+					throw ex_1;
+				}
+				throw ex;
+			}			
+		}
 		catch (Exception ex)
 		{
 			try
@@ -244,6 +302,35 @@ public class MyExecuteData
 			if (Result > 0) return true;
 			else return false;
 
+		}
+		catch (SQLException e)
+		{
+			try
+			{
+				if (mDBConfig.AutoSwitchConnection && mDBConfig.OrderConnection <= mDBConfig.MaxConnectionBackup)
+				{
+					if (	e.getSQLState().equalsIgnoreCase(DBConfig.SQLState.SQLState_TimeOut.GetValue()) || 
+							e.getErrorCode() == DBConfig.SQLErrorCode.SQLErrorCode_TimeOut.GetValue())
+					{
+						mDBConfig.SetOrderConnection();
+						return Execute_Pro(ProName,Arr_Name,Arr_Value);
+					}
+				}
+				if (UseTransaction) mConnect.rollback();
+				throw e;
+			}
+			catch (Exception ex)
+			{
+				try
+				{
+					if (UseTransaction) mConnect.rollback();
+				}
+				catch (Exception ex_1)
+				{
+					throw ex_1;
+				}
+				throw ex;
+			}			
 		}
 		catch (Exception ex)
 		{

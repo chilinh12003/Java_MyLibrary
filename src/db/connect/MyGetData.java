@@ -29,13 +29,12 @@ public class MyGetData
 		{
 			throw ex;
 		}
-	}	
+	}
 
 	public Connection getConnection() throws SQLException, Exception
 	{
 		return MyConnection.getConnection(mDBConfig);
 	}
-
 
 	public void CloseAll() throws Exception
 	{
@@ -78,26 +77,41 @@ public class MyGetData
 
 			MyTableModel mTable = new MyTableModel(rs);
 
-			CloseAll();
-
 			return mTable;
 
 		}
 		catch (SQLException e)
 		{
-			CloseAll();
-			throw e;
-
+			try
+			{
+				if (mDBConfig.AutoSwitchConnection && mDBConfig.OrderConnection <= mDBConfig.MaxConnectionBackup)
+				{
+					if (	e.getSQLState().equalsIgnoreCase(DBConfig.SQLState.SQLState_TimeOut.GetValue()) || 
+							e.getErrorCode() == DBConfig.SQLErrorCode.SQLErrorCode_TimeOut.GetValue())
+					{
+						mDBConfig.SetOrderConnection();
+						return GetData_Query(Query);
+					}
+				}
+				throw e;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}			
 		}
 		catch (Exception ex)
 		{
-			CloseAll();
 			throw ex;
 		}
-
+		finally
+		{
+			CloseAll();
+		}
 	}
 
-	public MyTableModel GetData_Pro(String ProName, String[] Arr_Name, String[] Arr_Value) throws Exception, SQLException
+	public MyTableModel GetData_Pro(String ProName, String[] Arr_Name, String[] Arr_Value) throws Exception,
+			SQLException
 	{
 		try
 		{
@@ -132,7 +146,24 @@ public class MyGetData
 		}
 		catch (SQLException e)
 		{
-			throw e;
+
+			try
+			{
+				if (mDBConfig.AutoSwitchConnection && mDBConfig.OrderConnection <= mDBConfig.MaxConnectionBackup)
+				{
+					if (	e.getSQLState().equalsIgnoreCase(DBConfig.SQLState.SQLState_TimeOut.GetValue()) || 
+							e.getErrorCode() == DBConfig.SQLErrorCode.SQLErrorCode_TimeOut.GetValue())
+					{
+						mDBConfig.SetOrderConnection();
+						return GetData_Pro(ProName,Arr_Name,Arr_Value);
+					}
+				}
+				throw e;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}			
 		}
 		catch (Exception ex)
 		{
@@ -144,7 +175,8 @@ public class MyGetData
 		}
 	}
 
-	public MyTableModel GetData_Pro(String ProName, String[] Arr_Name, String[] Arr_Value, Integer IndexResultSet) throws Exception, SQLException
+	public MyTableModel GetData_Pro(String ProName, String[] Arr_Name, String[] Arr_Value, Integer IndexResultSet)
+			throws Exception, SQLException
 	{
 		try
 		{
@@ -194,7 +226,24 @@ public class MyGetData
 		}
 		catch (SQLException e)
 		{
-			throw e;
+
+			try
+			{
+				if (mDBConfig.AutoSwitchConnection && mDBConfig.OrderConnection <= mDBConfig.MaxConnectionBackup)
+				{
+					if (	e.getSQLState().equalsIgnoreCase(DBConfig.SQLState.SQLState_TimeOut.GetValue()) || 
+							e.getErrorCode() == DBConfig.SQLErrorCode.SQLErrorCode_TimeOut.GetValue())
+					{
+						mDBConfig.SetOrderConnection();
+						return GetData_Pro(ProName,Arr_Name,Arr_Value,IndexResultSet);
+					}
+				}
+				throw e;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}			
 		}
 		catch (Exception ex)
 		{

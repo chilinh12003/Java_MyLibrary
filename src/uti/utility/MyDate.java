@@ -55,7 +55,7 @@ public class MyDate
 	 * @param CalendarField
 	 *            : được lấy từ Calendar.SECOND hoặc
 	 *            ,Calendar.MINUTE,Calendar.DATE
-	 * @return
+	 * @return kết quả trả về luôn là 1 số >=0
 	 * @throws Exception
 	 */
 	public static Long SubDate(Calendar mCal_Begin, Calendar mCal_End, int CalendarField) throws Exception
@@ -64,28 +64,25 @@ public class MyDate
 		long EndSecond = mCal_End.getTimeInMillis();
 
 		long diff = EndSecond - BeginSecond;
+		long ReturnValue = diff;
+
 		if (Calendar.SECOND == CalendarField)
 		{
-			long diffSeconds = diff / 1000;
-			return diffSeconds;
+			ReturnValue = diff / 1000;
 		}
 		else if (Calendar.MINUTE == CalendarField)
 		{
-			long diffMinutes = diff / (60 * 1000);
-			return diffMinutes;
+			ReturnValue = diff / (60 * 1000);
 		}
 		else if (Calendar.HOUR == CalendarField)
 		{
-			long diffHours = diff / (60 * 60 * 1000);
-			return diffHours;
+			ReturnValue = diff / (60 * 60 * 1000);
 		}
 		else if (Calendar.DATE == CalendarField)
 		{
-
-			long diffDays = diff / (24 * 60 * 60 * 1000);
-			return diffDays;
+			ReturnValue = diff / (24 * 60 * 60 * 1000);
 		}
-		return diff;
+		return Math.abs(ReturnValue);
 	}
 
 	private static long DAY_MILLIS = 1000 * 60 * 60 * 24;
@@ -106,8 +103,10 @@ public class MyDate
 
 	/**
 	 * Lấy khoảng thời gian chênh giữa 2 ngày tháng
-	 * @param mTimeType 
-	 * <br/>Kiểu cần lấy là Ngày, Giờ, Phút, Giây
+	 * 
+	 * @param mTimeType
+	 * <br/>
+	 *            Kiểu cần lấy là Ngày, Giờ, Phút, Giây
 	 * @param from
 	 * @param to
 	 * @return
